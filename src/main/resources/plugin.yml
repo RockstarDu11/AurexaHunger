@@ -1,0 +1,13 @@
+name: AurexaHunger
+main: fr.aurexa.hunger.AurexaHunger
+version: 1.0.0
+description: Hunger Games avec zones PvP/passives, zone d'event et scoreboard
+commands:
+  hg:
+    description: Commandes AurexaHunger
+    aliases: [aurexahunger, ah, hungergames]
+    usage: /hg help
+permissions:
+  aurexahunger.admin:
+    description: Administrer les Hunger Games
+    default: op

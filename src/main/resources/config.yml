@@ -1,0 +1,163 @@
+# ==================== AurexaHunger (1.8.8) ====================
+# Codes couleur avec & ; placeholders avec %nom%
+# Les arènes (région, lobby, spawns, panneaux) sont créées en jeu avec /hg create <nom> et enregistrées dans arenas.yml
+game:
+  min-players: 2          # valeurs par défaut des NOUVELLES arènes (/hg setplayers <nom> <min> <max>)
+  max-players: 24
+  lobby-countdown: 30     # secondes avant le début
+  pvp-delay: 180          # secondes avant l'activation du PvP (phase passive)
+  end-delay: 15           # secondes avant le retour au lobby après la victoire
+
+arena:
+  grid: 4                 # 4 => grille 4x4 = 16 zones numérotées de 1 à 16, sur la zone sélectionnée
+  spawn-radius: 12        # cercle de départ, utilisé seulement s'il manque des spawns (/hg setspawn)
+  enforce-height: false   # true = la hauteur de la sélection est aussi une limite
+
+zones:
+  passive: [1, 4, 13, 16] # zones où le PvP est TOUJOURS interdit (ex: les coins)
+
+event:
+  enabled: true
+  first-delay: 240        # secondes avant la 1ère zone d'event
+  interval: 120           # pause entre deux events
+  warning: 20             # prévenir X secondes avant l'activation
+  duration: 60            # durée de l'event
+  damage: 2.0             # dégâts par seconde dans la zone d'event (2.0 = 1 coeur)
+  lightning: true         # éclairs visuels dans la zone d'event
+
+chests:
+  enabled: true
+  per-zone: 3             # coffres aléatoires par zone (16 zones x 3 = 48 coffres)
+  center-count: 6         # coffres de la cornucopia (loot rare)
+  center-radius: 4        # rayon de la cornucopia autour du centre
+  per-tick: 3             # coffres posés / rechargés par tick (évite le lag)
+  refill-interval: 300    # secondes entre deux rechargements (0 = jamais)
+  items-normal: [3, 6]    # nombre d'objets min/max dans un coffre normal
+  items-rare: [6, 10]     # nombre d'objets min/max dans un coffre de cornucopia
+
+# Format : MATERIAL;quantité (ou min-max);poids[;data]   (noms de matériaux 1.8)
+loot:
+  normal:
+    - "WOOD_SWORD;1;10"
+    - "STONE_SWORD;1;7"
+    - "IRON_SWORD;1;2"
+    - "WOOD_AXE;1;6"
+    - "STONE_AXE;1;4"
+    - "LEATHER_HELMET;1;8"
+    - "LEATHER_CHESTPLATE;1;7"
+    - "LEATHER_LEGGINGS;1;7"
+    - "LEATHER_BOOTS;1;8"
+    - "CHAINMAIL_HELMET;1;4"
+    - "CHAINMAIL_CHESTPLATE;1;3"
+    - "CHAINMAIL_LEGGINGS;1;3"
+    - "CHAINMAIL_BOOTS;1;4"
+    - "GOLD_HELMET;1;3"
+    - "GOLD_CHESTPLATE;1;2"
+    - "GOLD_BOOTS;1;3"
+    - "BOW;1;5"
+    - "ARROW;4-12;9"
+    - "FISHING_ROD;1;4"
+    - "FLINT_AND_STEEL;1;3"
+    - "BREAD;2-5;12"
+    - "COOKED_BEEF;2-4;9"
+    - "COOKED_CHICKEN;2-4;9"
+    - "APPLE;2-4;8"
+    - "CARROT_ITEM;2-5;6"
+    - "GOLDEN_APPLE;1;2"
+    - "WEB;2-4;4"
+    - "WOOD;8-16;6"
+    - "SNOW_BALL;8-16;4"
+    - "EXP_BOTTLE;3-6;3"
+    - "WATER_BUCKET;1;2"
+    - "ENDER_PEARL;1;1"
+  rare:
+    - "DIAMOND_SWORD;1;2"
+    - "IRON_SWORD;1;6"
+    - "IRON_AXE;1;4"
+    - "IRON_HELMET;1;6"
+    - "IRON_CHESTPLATE;1;5"
+    - "IRON_LEGGINGS;1;5"
+    - "IRON_BOOTS;1;6"
+    - "DIAMOND_HELMET;1;2"
+    - "DIAMOND_CHESTPLATE;1;1"
+    - "DIAMOND_LEGGINGS;1;1"
+    - "DIAMOND_BOOTS;1;2"
+    - "BOW;1;6"
+    - "ARROW;12-24;8"
+    - "GOLDEN_APPLE;1-2;6"
+    - "GOLDEN_APPLE;1;1;1"
+    - "COOKED_BEEF;4-8;8"
+    - "ENDER_PEARL;1-2;4"
+    - "TNT;1-3;3"
+    - "FLINT_AND_STEEL;1;3"
+    - "EXP_BOTTLE;6-12;4"
+    - "WATER_BUCKET;1;2"
+    - "LAVA_BUCKET;1;1"
+
+scoreboard:
+  title: "&c&lAurexaHunger"
+
+death-reasons:
+  FALL: "a fait une chute mortelle"
+  FIRE: "a brûlé vif"
+  FIRE_TICK: "a brûlé vif"
+  LAVA: "a plongé dans la lave"
+  DROWNING: "s'est noyé"
+  VOID: "est tombé dans le vide"
+  STARVATION: "est mort de faim"
+  SUFFOCATION: "a été étouffé"
+  POISON: "a succombé au poison"
+  MAGIC: "a été terrassé par la magie"
+  WITHER: "s'est desséché"
+  BLOCK_EXPLOSION: "a explosé"
+  ENTITY_EXPLOSION: "a explosé"
+  ENTITY_ATTACK: "a été tué par une créature"
+  PROJECTILE: "a été abattu"
+  LIGHTNING: "a été foudroyé"
+  CUSTOM: "a été consumé par la zone d'event"
+  default: "est mort"
+
+messages:
+  prefix: "&8[&c&lAH&8] "
+  full: "&cLa partie est complète."
+  join: "%prefix%&a+ &f%player% &7(&f%count%/%max%&7)"
+  quit: "%prefix%&c- &f%player% &7(&f%count%/%max%&7)"
+  not-enough: "%prefix%&cPas assez de joueurs, le compte à rebours est annulé."
+  cannot-start: "&cImpossible de lancer : une partie est déjà en cours."
+  countdown: "%prefix%&eDébut de la partie dans &f%time% &eseconde(s) !"
+  start-title: "&c&lQUE LES JEUX COMMENCENT !"
+  start-subtitle: "&7PvP activé dans &f%time%"
+  pvp-soon: "%prefix%&eLe PvP sera activé dans &f%time% &eseconde(s) !"
+  pvp-title: "&4&lPVP ACTIVÉ"
+  pvp-subtitle: "&cQue le meilleur gagne !"
+  pvp-enabled: "%prefix%&c&lLE PVP EST ACTIVÉ ! &7Que le meilleur gagne."
+  pvp-disabled: "&cLe PvP n'est pas encore activé !"
+  passive-zone: "&aZone passive : le PvP y est interdit."
+  event-warning: "%prefix%&6⚠ La &fZone %zone% &6deviendra dangereuse dans &f%time%s !"
+  event-start: "%prefix%&4☠ &cZone %zone% en feu ! &7PvP forcé et dégâts continus."
+  event-end: "%prefix%&aL'event est terminé. &7Prochaine zone : &fZone %zone%"
+  kill-player: "&8[&c☠&8] &c%victim% &7a été tué par &a%killer% &8avec &e%weapon% &8• &f%left% &7tributs restants"
+  kill-other: "&8[&c☠&8] &c%victim% &7%reason% &8• &f%left% &7tributs restants"
+  winner-chat: "%prefix%&6&l%winner% &eremporte les Hunger Games avec &f%kills% &ekill(s) !"
+  winner-title: "&6&l%winner%"
+  winner-subtitle: "&eest le dernier tribut en vie !"
+  no-winner: "%prefix%&7Personne n'a survécu... égalité."
+  chests-refill: "%prefix%&6Les coffres ont été rechargés ! &7Cherchez de nouveaux équipements."
+  chests-soon: "%prefix%&eRechargement des coffres dans &f%time% &eseconde(s) !"
+  pos-set: "%prefix%&aPosition %n% définie &7(%x%, %y%, %z%)"
+  selection-missing: "&cSélection incomplète : clic gauche = position 1, clic droit = position 2 (/hg wand)."
+  selection-world: "&cLes deux positions doivent être dans le même monde."
+  arena-set: "%prefix%&aArène enregistrée : &f%sx%x%sz% blocs &7- &f%zones% zones"
+  wand-given: "%prefix%&eClic gauche = position 1, clic droit = position 2, puis &f/hg setregion <nom>"
+  arena-outside: "&cTu ne peux pas quitter l'arène !"
+  you-joined: "%prefix%&aTu as rejoint la partie ! &7Attends le début."
+  already: "&cTu es déjà dans une partie."
+  game-running: "&cLa partie est déjà en cours."
+  game-full: "&cLa partie est complète."
+  no-arena: "&cCette arène n'est pas prête (région et lobby requis)."
+  no-players: "&cAucun joueur dans cette arène (clique sur un panneau pour rejoindre)."
+  left: "%prefix%&7Tu as quitté la partie."
+  not-in-game: "&cTu n'es pas dans une partie."
+  sign-created: "%prefix%&aPanneau créé."
+  sign-usage: "&cLigne 2 : join ou leave"
+  sign-removed: "%prefix%&ePanneau supprimé."
